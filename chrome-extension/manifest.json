@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Dynamic Page Text Extractor",
+  "version": "1.0",
+  "description": "Extracts rendered text from any URL by opening it in a hidden tab.",
+  "permissions": ["tabs", "scripting", "bookmarks"],
+  "host_permissions": ["https://*/*", "http://*/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
