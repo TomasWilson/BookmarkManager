@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <title>Text Extractor</title>
   <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
   <style>
 
     body {
@@ -21,6 +21,21 @@
     .button-save.saved {
       background-color: rgb(58, 201, 58);
     }
+
+    .invalid {
+      outline: 1px solid rgb(236, 43, 43);
+    }
+
+    .error-message {
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: rgb(236, 43, 43);
+      font-size: 16px;
+    }
+
+
 
   </style>
 </head>
@@ -40,9 +55,14 @@
       <option selected disabled value="">Select source folder</option>
     </select>
 
-    <select id="select_output" required>
+    <select id="select_output" required class="invalid">
       <option selected disabled value="">Select output folder</option>
     </select>
+
+    <article class="invalid error-message">
+        <span>You cannot select the same source and output folders</span>
+        <i class="fa fa-triangle-exclamation"></i>
+    </article>
 
     <fieldset style="font-size: 16px;">
 

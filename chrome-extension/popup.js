@@ -43,8 +43,6 @@ async function update_folder_selects() {
 
 await update_folder_selects();
 
-
-
 button_save_api.addEventListener("click", async () => {
     button_save_api.classList.add("saved");
     save_icon.classList.replace("fa-save", "fa-check");
@@ -57,9 +55,22 @@ button_save_api.addEventListener("click", async () => {
 });
 
 document.getElementById("update").addEventListener("click", () => {
-    var source_folder_name = document.getElementById("source_folder").value;
-    var target_folder_name = document.getElementById("target_folder").value;
-    chrome.runtime.sendMessage({ action: "update", source_folder_name: source_folder_name, target_folder_name: target_folder_name });
+
+    var source_folder_name = source_folder_select.value;
+    var output_folder_name = output_folder_select.value;
+
+    if(source_folder_name == output_folder_name) {
+        
+    }
+
+    chrome.runtime.sendMessage({ 
+        action: "update", 
+        source_folder_name: source_folder_name, 
+        target_folder_name: output_folder_name,
+
+    
+    });
+
 });
 
 document.getElementById("api_key_input").addEventListener("change", (event) => {
