@@ -31,26 +31,17 @@
 
     <fieldset role="group">
       <input id="api_key_input" type="text" placeholder="Your Gemini API key">
-      <!-- <button class="button-check"></button> -->
       <button id="save_api_key" class="button-save">
         <i class="fa fa-save"></i>
       </button>
     </fieldset>
 
-    <select name="select_source" aria-label="Select source folder" required>
+    <select id="select_source" required>
       <option selected disabled value="">Select source folder</option>
-      <option>Solid</option>
-      <option>Liquid</option>
-      <option>Gas</option>
-      <option>Plasma</option>false
     </select>
 
-    <select name="select_source" aria-label="Select output folder" required>
+    <select id="select_output" required>
       <option selected disabled value="">Select output folder</option>
-      <option>Solid</option>
-      <option>Liquid</option>
-      <option>Gas</option>
-      <option>Plasma</option>false
     </select>
 
     <fieldset style="font-size: 16px;">
@@ -62,7 +53,7 @@
 
       <label>
         <input type="checkbox" name="english" />
-        Force update existing URLs
+        Force update for existing URLs
       </label>
 
     </fieldset>
@@ -71,11 +62,10 @@
     <button id="update" type="button" aria-busy="false">Update</button>
 
     <progress id="progress" value="0" max="100" style="width: 100%; height: 12px;"></progress>
-
-    <script src="popup.js" type="module"></script>
-
+    
   </div>
-
+  
+  <script src="popup.js" type="module"></script>
 </body>
 
 </html>

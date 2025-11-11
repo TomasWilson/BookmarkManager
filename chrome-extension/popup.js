@@ -15,6 +15,36 @@ api_key_input.addEventListener("change", () => {
     api_key = api_key_input.value;
 });
 
+const source_folder_select = document.querySelector("#select_source");
+const output_folder_select = document.querySelector("#select_output");
+
+async function update_folder_selects() {
+
+    [source_folder_select, output_folder_select].forEach((select) => {
+        for(var child of Array.from(select.children)) {
+            if(!child.hasAttribute("selected")) {
+                child.remove();
+            }
+        }
+    });
+
+    var bookmarks_bar = (await chrome.bookmarks.getTree())[0].children[0];
+    var folders = bookmarks_bar.children
+                    .filter((child) => child.url === undefined)
+                    .map((child) => child.title);
+
+    [source_folder_select, output_folder_select].forEach((select) => {
+        folders.forEach((fname) => {
+            select.appendChild(new Option(fname));
+        });
+    });
+    
+};
+
+await update_folder_selects();
+
+
+
 button_save_api.addEventListener("click", async () => {
     button_save_api.classList.add("saved");
     save_icon.classList.replace("fa-save", "fa-check");
@@ -27,11 +57,9 @@ button_save_api.addEventListener("click", async () => {
 });
 
 document.getElementById("update").addEventListener("click", () => {
-
     var source_folder_name = document.getElementById("source_folder").value;
     var target_folder_name = document.getElementById("target_folder").value;
     chrome.runtime.sendMessage({ action: "update", source_folder_name: source_folder_name, target_folder_name: target_folder_name });
-
 });
 
 document.getElementById("api_key_input").addEventListener("change", (event) => {
@@ -45,13 +73,11 @@ chrome.runtime.sendMessage({ action: "get-progress" }, (response) => {
 });
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-
     console.log("popup.js onMessage:", msg.action);
 
     if(msg.action == "set-progress") {
         console.log("popup.js: received set-progress");
         document.getElementById("progress").value = msg.value;
     }
-
 });
 
