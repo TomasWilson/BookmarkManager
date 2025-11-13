@@ -54,21 +54,62 @@ button_save_api.addEventListener("click", async () => {
     }, 1500);
 });
 
+function insert_error_message_after_element(element, message_text) {
+    var error_msg_template = document.querySelector("#error-message-template");
+    let error_article = error_msg_template.content.cloneNode(true);
+    error_article.querySelector("span").textContent = message_text;
+    // error_article.after(element);
+    element.after(error_article);
+}
+
 document.getElementById("update").addEventListener("click", () => {
 
     var source_folder_name = source_folder_select.value;
     var output_folder_name = output_folder_select.value;
 
+
+    // remove any old error messages
+    document.querySelectorAll(".invalid").forEach((ele) => {
+        ele.classList.remove("invalid");
+    });
+    document.querySelectorAll(".error-message").forEach((ele) => {
+        ele.remove();
+    })
+
+    var valid = true;
+
+    if(source_folder_select.value == "") {
+        valid = false;
+        source_folder_select.classList.add("invalid");
+        insert_error_message_after_element(
+            source_folder_select, 
+            "Please select a source folder."
+        );
+    }
+    if(output_folder_select.value == "") {
+        valid = false;
+        output_folder_select.classList.add("invalid");
+        insert_error_message_after_element(
+            output_folder_select,
+            "Please select an output folder"
+        );
+    }
+    if(!valid) return;
+
     if(source_folder_name == output_folder_name) {
-        
+        source_folder_select.classList.add("invalid");
+        output_folder_select.classList.add("invalid");
+        insert_error_message_after_element(
+            output_folder_select, 
+            "Cannot select the same source and target folder!"
+        );
+        return;
     }
 
     chrome.runtime.sendMessage({ 
         action: "update", 
         source_folder_name: source_folder_name, 
         target_folder_name: output_folder_name,
-
-    
     });
 
 });

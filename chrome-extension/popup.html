@@ -7,11 +7,10 @@
   <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet" />
   <style>
-
     body {
       font-family: sans-serif;
       padding: 12px;
-      width: 300px;
+      width: 320px;
     }
 
     .button-save {
@@ -27,16 +26,19 @@
     }
 
     .error-message {
-      padding: 8px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+      margin-bottom: 8px;
       color: rgb(236, 43, 43);
       font-size: 16px;
     }
 
-
-
+    label.invalid {
+      border-radius: 2pt;
+      padding: 2pt;
+    }
   </style>
 </head>
 
@@ -55,14 +57,14 @@
       <option selected disabled value="">Select source folder</option>
     </select>
 
-    <select id="select_output" required class="invalid">
+    <select id="select_output" required>
       <option selected disabled value="">Select output folder</option>
     </select>
 
-    <article class="invalid error-message">
-        <span>You cannot select the same source and output folders</span>
-        <i class="fa fa-triangle-exclamation"></i>
-    </article>
+    <!-- <article class="invalid error-message">
+      <span>You cannot select the same source and output folders</span>
+      <i class="fa fa-triangle-exclamation"></i>
+    </article> -->
 
     <fieldset style="font-size: 16px;">
 
@@ -82,10 +84,19 @@
     <button id="update" type="button" aria-busy="false">Update</button>
 
     <progress id="progress" value="0" max="100" style="width: 100%; height: 12px;"></progress>
-    
+
   </div>
-  
+
   <script src="popup.js" type="module"></script>
+  
+  <template id="error-message-template">
+    <article class="invalid error-message">
+      <span></span>
+      <i class="fa fa-triangle-exclamation"></i>
+    </article>
+  </template>
+
 </body>
+
 
 </html>
